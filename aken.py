@@ -12,6 +12,10 @@ class Kaart(Frame):
         self.createwidgets()
         self.newmap()
 
+    def refpot(self):
+        self.photohe=PhotoImage(file=get_pic(str(hero.pot)))
+        self.Heal=Button(self,bg="black",relief=FLAT,image=self.photohe,command=self.heal).grid(column=13,row=7,sticky=(N,S,W,E))
+
     def press(self,e):
         key = e.keysym
 
@@ -43,7 +47,7 @@ class Kaart(Frame):
         self.Kaart[5][5]=Label(self,bg="black",image=self.photokangelane).grid(column=5,row=5,sticky=(N,S,W,E))
     def createwidgets(self):
 
-        self.photokangelane=PhotoImage(file=get_pic(hero.gender))#TO CHANGE
+        self.photokangelane=PhotoImage(file=get_pic(hero.gender))
 #        self.kaardil=["T",PhotoImage(file=get_pic("T")),"B",PhotoImage(file=get_pic("B")),
 #                      "H",PhotoImage(file=get_pic("H")),"M",PhotoImage(file=get_pic("M")),
 #                      "#",PhotoImage(file=get_pic("#")),".",PhotoImage(file=get_pic("."))]
@@ -54,17 +58,17 @@ class Kaart(Frame):
         self.photou=PhotoImage(file=get_pic("U"))
         self.photod=PhotoImage(file=get_pic("D"))
         self.photohe=PhotoImage(file=get_pic(str(hero.pot)))
-        self.photoat=PhotoImage(file=get_pic("a"))
-        self.photode=PhotoImage(file=get_pic("d"))
-        self.photowep=PhotoImage(file=get_pic(hero.W.name))
-        self.photoarm=PhotoImage(file=get_pic(hero.A.name))
+        self.photoat=PhotoImage(file=get_pic("attack"))
+        self.photode=PhotoImage(file=get_pic("defence"))
+        self.photowep=PhotoImage(file=get_pic(hero.W.pic))
+        self.photoarm=PhotoImage(file=get_pic(hero.A.pic))
         style=Style()
         style.configure("SD",background="black")
-        self.Name=Label(self,bg="black",fg="Red",text=hero.name).grid(column=11,row=0,columnspan=3,sticky=(N,S,W,E))
+        self.Name=Label(self,bg="black",fg="Red",text=hero.name,font=("Matura MT Script Capitals",12)).grid(column=11,row=0,columnspan=3,sticky=(N,S,W,E))
         self.wep=Label(self,bg="black",image=self.photowep).grid(column=11,row=6,sticky=(N,S,W,E))
         self.arm=Label(self,bg="black",image=self.photoarm).grid(column=11,row=5,sticky=(N,S,W,E))
-        self.wepinf=Label(self,bg="black",fg="red",text=hero.W.name+"\n damage- "+str(hero.W.mindam)+"-"+str(hero.W.maxdam)+"\n"+"critical chance:- "+str(hero.W.crit)).grid(column=12,row=6,columnspan=2,sticky=(N,S,W,E))
-        self.arminf=Label(self,bg="black",fg="red",text=hero.A.name+"\n defence- "+str(hero.A.defence)).grid(column=12,row=5,columnspan=2,sticky=(N,S,W,E))
+        self.wepinf=Label(self,bg="black",fg="red",font=("Matura MT Script Capitals",9),text=hero.W.name+"\n damage- "+str(hero.W.mindam)+"-"+str(hero.W.maxdam)+"\n"+"critical chance: "+str(int(hero.W.crit*100))+"%").grid(column=12,row=6,columnspan=2,sticky=(N,S,W,E))
+        self.arminf=Label(self,bg="black",fg="red",font=("Matura MT Script Capitals",9),text=hero.A.name+"\n defence- "+str(hero.A.defence)).grid(column=12,row=5,columnspan=2,sticky=(N,S,W,E))
         self.blank1=Label(self,bg="black",image=self.photoblank).grid(column=11,row=10,sticky=(N,S,W,E))
         self.blank2=Label(self,bg="black",image=self.photoblank).grid(column=11,row=8,sticky=(N,S,W,E))
         self.blank3=Label(self,bg="black",image=self.photoblank).grid(column=13,row=8,sticky=(N,S,W,E))
@@ -79,16 +83,36 @@ class Kaart(Frame):
         self.elud=Label(self,bg="black",fg="red",text=(hero.hp,"/100")).grid(row=1,column=11,sticky=(N,W,S,E))
         self.eludebar=Progressbar(self,value=hero.hp).grid(row=1,column=12,columnspan=2,sticky=(N,W,S,E))
     def up(self):
-        UP()
+        e=UP()
+        if e=="p" and hero.pot!=5:
+            hero.uuspot()
+            self.refpot()
+            delfrommap(-1,0)
+            UP()
         self.refmap()
     def down(self):
-        DOWN()
+        e=DOWN()
+        if e=="p" and hero.pot!=5:
+            hero.uuspot()
+            self.refpot()
+            delfrommap(1,0)
+            DOWN()
         self.refmap()
     def right(self):
-        RIGHT()
+        e=RIGHT()
+        if e=="p" and hero.pot!=5:
+            hero.uuspot()
+            self.refpot()
+            delfrommap(0,1)
+            RIGHT()
         self.refmap()
     def left(self):
-        LEFT()
+        e=LEFT()
+        if e=="p" and hero.pot!=5:
+            hero.uuspot()
+            self.refpot()
+            delfrommap(0,-1)
+            LEFT()
         self.refmap()
     def attack(self):
         print("ATTACK")
@@ -123,8 +147,8 @@ class Tiitel(Frame):
         self.nimi=StringVar()
         Entry(self,textvariable=self.nimi,fg="red",bg="black").grid(column=1,row=0)
         self.sex=StringVar()
-        Radiobutton(self,text="F",variable=self.sex,value="f",fg="red",bg="black").grid(column=0,row=1)
-        Radiobutton(self,text="M",variable=self.sex,value="m",fg="red",bg="black").grid(column=1,row=1)
+        Radiobutton(self,text="F",variable=self.sex,value="fem",fg="red",bg="black").grid(column=0,row=1)
+        Radiobutton(self,text="M",variable=self.sex,value="male",fg="red",bg="black").grid(column=1,row=1)
         self.mapnr=StringVar()
         Radiobutton(self,text="Map nr. 1",variable=self.mapnr,value="map1.txt",fg="red",bg="black").grid(column=0,row=2)
         Radiobutton(self,text="Map nr. 2",variable=self.mapnr,value="map2.txt",fg="red",bg="black").grid(column=1,row=2)

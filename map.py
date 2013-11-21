@@ -12,6 +12,11 @@ def loo_kaart(kaart):
     global Kangelane
     Kangelane=find("K")
     Joonista()
+
+def delfrommap(x,y):
+    MAP[Kangelane[0]+x][Kangelane[1]+y]="."
+    Map[Kangelane[0]+x][Kangelane[1]+y]=PhotoImage(file=get_pic("."))
+
 def Joonista():
     global Map
     Map=[]
@@ -38,12 +43,20 @@ def out():
 def LEFT():
     if MAP[Kangelane[0]][Kangelane[1]-1]==".":
         Kangelane[1]-=1
+    else:
+        return MAP[Kangelane[0]][Kangelane[1]-1]
 def RIGHT():
     if MAP[Kangelane[0]][Kangelane[1]+1]==".":
         Kangelane[1]+=1
+    else:
+        return MAP[Kangelane[0]][Kangelane[1]+1]
 def UP():
     if MAP[Kangelane[0]-1][Kangelane[1]]==".":
         Kangelane[0]-=1
+    else:
+        return MAP[Kangelane[0]-1][Kangelane[1]]
 def DOWN():
     if MAP[Kangelane[0]+1][Kangelane[1]]==".":
         Kangelane[0]+=1
+    else:
+        return MAP[Kangelane[0]+1][Kangelane[1]]

@@ -36,37 +36,40 @@ class char:
 #koletis
 
 class monster:
-    def __init__(self,name,attack,defence):
+    def __init__(self,name,attack,defence,pic):
         self.name=name
         self.hp=100
         self.attack=attack
         self.defence=defence
-monsters=[monster(' ',0,0),
-          monster('Teddy',10,5), #1. mob (drop +1 pot)
-          monster('Mummy',15,10), #2. mob (drop +2 pot)
-          monster('Mihkel-Hunter',30,10),
-          monster('Something Bad Guy',60,40)] #3. mob
+        self.pic=pic
+monsters=[monster(' ',0,0," "),
+          monster('Teddy',10,5,"T"), #1. mob (drop +1 pot)
+          monster('Mummy',15,10,"M"), #2. mob (drop +2 pot)
+          monster('Mihkel-Hunter',30,10,"H"),
+          monster('Something Bad Guy',60,40,"B")] #3. mob
         
 #relvad
 
 class weapon:
-    def __init__(self,name,mindam,maxdam,crit):
+    def __init__(self,name,mindam,maxdam,crit,pic):
         self.name=name
         self.mindam=mindam
         self.maxdam=maxdam
         self.crit=crit/100
-weapons=[weapon(' ',0,12,1),
-         weapon('Branch',2,10,5), #1. mobi drop
-         weapon('Sword',10,20,10)] #2. mobi drop
+        self.pic=pic
+weapons=[weapon(' ',0,12,1," "),
+         weapon('Branch',2,10,5,"b"), #1. mobi drop
+         weapon('Sword',10,20,10,"s")] #2. mobi drop
 
 
 class armor:
-    def __init__(self,name,defence):
+    def __init__(self,name,defence,pic):
         self.name=name
         self.defence=defence
-armors=[armor(' ',0),
-        armor('Cloak',5), #1. mobi drop
-        armor('Chainmail',20)] #2. mobi drop
+        self.pic=pic
+armors=[armor(' ',0," "),
+        armor('Cloak',5,"c"), #1. mobi drop
+        armor('Chainmail',20,"m")] #2. mobi drop
 
 
 
